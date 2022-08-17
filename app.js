@@ -20,6 +20,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", routes);
 
+// middleware
+const routesNotFoundMiddleware = require("./middleware/routesNotFoundMiddleware");
+
 connection();
 
 let port = 5000 || process.env.PORT;
