@@ -13,13 +13,17 @@ router.post(
 
 router.get("/get-subscription", subscriptionApi.getAllSubscription.handler);
 
-// router.put(
-//   "/update-subscription/:id",
-//   authAdmin,
-//   validate("body", subscriptionApi.updatesubscription.validation),
-//   subscriptionApi.updatesubscription.handler
-// );
+router.put(
+  "/update-subscription/:id",
+  authAdmin,
+  validate("body", subscriptionApi.updateSubscription.validation),
+  subscriptionApi.updateSubscription.handler
+);
 
-// router.delete("/delete-subscription", authAdmin, subscriptionApi.deletesubscription.handler);
+router.delete(
+  "/delete-subscription",
+  authAdmin,
+  subscriptionApi.deleteSubscription.handler
+);
 
 module.exports = exports = router;

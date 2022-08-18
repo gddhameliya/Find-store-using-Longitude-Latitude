@@ -14,7 +14,7 @@ const {
 
 module.exports = exports = {
   handler: async (req, res) => {
-    const { id, nam } = req.query;
+    const { id, name } = req.query;
 
     try {
       if (id) {
@@ -49,15 +49,15 @@ module.exports = exports = {
           payload: getByName,
         });
       } else {
-        let getAllProduct = await subscriptionModel
+        let getAllSubscription = await subscriptionModel
           .find({})
           .sort({ createdAt: -1 })
           .populate("createdBy");
         return res.status(HTTP_CODES.OK).json({
           success: true,
           message: "All Subscription are found",
-          payload: getAllProduct,
-          count: getAllProduct.length,
+          payload: getAllSubscription,
+          count: getAllSubscription.length,
         });
       }
     } catch (error) {
