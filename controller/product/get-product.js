@@ -70,7 +70,9 @@ module.exports = exports = {
           payload: getByCetagory,
         });
       } else {
-        let getAllProduct = await productModel.find({}).sort({ createdAt: -1 });
+        
+        let getAllProduct = await productModel.find({}).sort({ createdAt: -1 })
+          .populate("createdBy");
         return res.status(HTTP_CODES.OK).json({
           success: true,
           message: "All products are found",

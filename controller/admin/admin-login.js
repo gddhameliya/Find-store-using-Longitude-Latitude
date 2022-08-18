@@ -39,7 +39,7 @@ module.exports = exports = {
             role: findAdmin.role,
           };
 
-          let token = await generateToken(data4Token, "24h");
+          let token = await generateToken(data4Token, "1d");
 
           return res.status(HTTP_CODES.OK).send({
             success: true,

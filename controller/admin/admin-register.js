@@ -13,46 +13,60 @@ const {
 } = require("../../utils/utils");
 
 module.exports = exports = {
-
   // router validation
   validation: Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
     fname: Joi.string().required(),
     lname: Joi.string().required(),
+    role: Joi.string(),
   }),
 
   handler: async (req, res) => {
     try {
-      const { email, password, fname, lname } = req.body;
+      const { email, password, fname, lname, role } = req.body;
+      console.log("req.body", req.body);
 
       const findAdmin = await adminModel.findOne({ email: email });
       if (findAdmin) {
         return res
           .status(HTTP_CODES.DUPLICATE_VALUE)
           .json({ success: false, error: "email is already register" });
-      } else {
-        const registerAdmin = await adminModel.create(req.body);
-
-        let payload = {
-          _id: registerAdmin._id,
-          email: registerAdmin.email,
-          fname: registerAdmin.fname,
-          lname: registerAdmin.lname,
-          role: registerAdmin.role,
-        };
-
-        let token = generateToken(payload, "24h");
-
-        return res.status(HTTP_CODES.OK).json({
-          success: true,
-          message: "User Created",
-          payload: payload,
-          token: token,
-        });
       }
+      let payload = {};
+
+      if (req.body.role == "admin") {
+        payload = {
+          email,
+          password,
+          fname,
+          lname,
+          role: USER_TYPE.ADMIN,
+        };
+      } else {
+        payload = {
+          email,
+          password,
+          fname,
+          lname,
+          role: USER_TYPE.USER,
+        };
+      }
+
+      console.log("payload", payload);
+      const registerAdmin = await adminModel.create(payload);
+      // delete registerAdmin._doc.password;
+      let token = generateToken(registerAdmin._doc, process.env.JWT_EXPIRY);
+
+      return res.status(HTTP_CODES.OK).json({
+        success: true,
+        message: "User Created",
+        payload: registerAdmin,
+        token: token,
+      });
     } catch (error) {
-      res.status(HTTP_CODES.BAD_REQUEST).json({
+      console.log("error", error);
+      return res.status(HTTP_CODES.BAD_REQUEST).json({
         success: false,
         message: message.userRegisterError,
         error: error.message,

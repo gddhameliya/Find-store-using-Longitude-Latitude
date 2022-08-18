@@ -4,7 +4,11 @@ const adminApi = require("../../controller/admin");
 const { auth } = require("../../middleware/auth");
 const validate = require("../../middleware/validate");
 
-router.post("/admin-register", validate("body", adminApi.registerAdmin.validation), adminApi.registerAdmin.handler);
+router.post(
+  "/admin-register",
+  validate("body", adminApi.registerAdmin.validation),
+  adminApi.registerAdmin.handler
+);
 
 router.post(
   "/admin-login",
