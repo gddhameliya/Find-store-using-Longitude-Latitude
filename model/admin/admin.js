@@ -43,6 +43,10 @@ let adminSchema = new mongoose.Schema(
     subscriptionEndDate: {
       type: Date,
     },
+    isSubscribed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true, versionKey: false, autoCreate: true }
 );

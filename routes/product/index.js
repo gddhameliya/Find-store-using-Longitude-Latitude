@@ -7,8 +7,8 @@ const validate = require("../../middleware/validate");
 router.post(
   "/create-product",
   auth,
-  validate("body", productApi.createPoduct.validation),
-  productApi.createPoduct.handler
+  validate("body", productApi.createProduct.validation),
+  productApi.createProduct.handler
 );
 
 router.get("/get-product", productApi.getProduct.handler);
