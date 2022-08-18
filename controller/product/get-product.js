@@ -11,7 +11,6 @@ const {
   hashString,
   compareString,
 } = require("../../utils/utils");
-const { isEmpty } = require("lodash");
 
 module.exports = exports = {
   validation: Joi.object({}),

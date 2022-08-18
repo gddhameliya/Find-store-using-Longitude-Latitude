@@ -11,7 +11,7 @@ router.post(
   subscriptionApi.createSubscription.handler
 );
 
-// router.get("/get-subscription", subscriptionApi.getsubscription.handler);
+router.get("/get-subscription", subscriptionApi.getAllSubscription.handler);
 
 // router.put(
 //   "/update-subscription/:id",
