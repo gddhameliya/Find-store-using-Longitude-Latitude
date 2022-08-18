@@ -33,6 +33,16 @@ let adminSchema = new mongoose.Schema(
       enum: [USER_TYPE.ADMIN, USER_TYPE.USER],
       default: USER_TYPE.USER,
     },
+    subscription: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "subscription",
+    },
+    subscriptionStartDate: {
+      type: Date,
+    },
+    subscriptionEndDate: {
+      type: Date,
+    },
   },
   { timestamps: true, versionKey: false, autoCreate: true }
 );
